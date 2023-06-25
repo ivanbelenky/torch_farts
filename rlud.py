@@ -76,11 +76,11 @@ class RLUDConvolver(nn.Module):
             ))
 
         self.condense_conv = nn.Sequential(
-            nn.Conv2d(32*4, 16, 5, padding=2, device=device),
+            nn.Conv2d(32*4, 64, 5, padding=2, device=device),
             nn.ReLU(),
-            nn.Conv2d(16, 8, 5, padding=2, device=device),
+            nn.Conv2d(64, 16, 5, padding=2, device=device),
             nn.ReLU(),
-            nn.Conv2d(8, channels, 5, padding=2, device=device),
+            nn.Conv2d(16, channels, 5, padding=2, device=device),
         )
 
     def forward(self, right, left, up, down):

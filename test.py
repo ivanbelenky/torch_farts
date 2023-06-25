@@ -15,15 +15,15 @@ from rlud import (
 
 
 if __name__ == "__main__":
-    img = load_img("../random/imgs/flippy.jpg")
+    img = load_img("imgs/highway.jpg")
     channels = img.shape[0]
-    lebox = [(90,90), (104,104)]
+    lebox = [(110,90), (134,114)]
     dataset = RLUDConvolver.weighted_dataset(img, lebox)
 
     model = RLUDConvolver(channels)
     model = model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
-    criterion = nn.HuberLoss()
+    criterion = nn.MSELoss()
 
     right_tgt, left_tgt, up_tgt, down_tgt = RLUDConvolver.rlud_values(img, lebox, reshape=True)
     right_tgt, left_tgt, up_tgt, down_tgt = right_tgt.to(device), left_tgt.to(device), up_tgt.to(device), down_tgt.to(device)
@@ -34,12 +34,12 @@ if __name__ == "__main__":
     rlud_tgt = RLUDConvolver.caterino(right_tgt, left_tgt, up_tgt, down_tgt)
     rlud_x = RLUDConvolver.caterino(right_x, left_x, up_x, down_x)
     
-    selected_idxs = RLUDConvolver.cossim_slice_idxs(rlud_x, rlud_tgt, 1024)
+    selected_idxs = RLUDConvolver.cossim_slice_idxs(rlud_x, rlud_tgt, 128)
     y_true, right_x, left_x, up_x, down_x = y_true[selected_idxs], right_x[selected_idxs], left_x[selected_idxs], up_x[selected_idxs], down_x[selected_idxs]
 
     dataset_size = len(y_true)
-    batch_size = 128
-    for epoch in range(10000):
+    batch_size = 64
+    for epoch in range(2000):
         idxs = np.random.choice(dataset_size, batch_size)
         y_batch, right_batch, left_batch, up_batch, down_batch = y_true[idxs], right_x[idxs], left_x[idxs], up_x[idxs], down_x[idxs]
         
