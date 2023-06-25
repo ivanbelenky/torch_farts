@@ -23,7 +23,7 @@ if __name__ == "__main__":
     model = RLUDConvolver(channels)
     model = model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
-    criterion = nn.SmoothL1Loss()
+    criterion = nn.HuberLoss()
 
     right_tgt, left_tgt, up_tgt, down_tgt = RLUDConvolver.rlud_values(img, lebox, reshape=True)
     right_tgt, left_tgt, up_tgt, down_tgt = right_tgt.to(device), left_tgt.to(device), up_tgt.to(device), down_tgt.to(device)
