@@ -34,15 +34,7 @@ For high dimensional domains, like the MNIST dataset, the approximation lacks th
 The results were good enough to show that the model is able to capture the underlying distro
 
 $$
-
-\text{train } p_{\theta} \ \text{over} \ \mathcal{D} \rightarrow \mathbf{x}_{max} = \max p_{\theta}(\mathbf{x}) \rightarrow \text{check how it looks like} \\
-
-$$
-
-$$
-\text{train } p_{\theta} \ \text{over} \ \mathcal{D'} \rightarrow \mathbf{PCA_n(x)}_{max} = \max p_{\theta}(\mathbf{PCA_n(x)}) \rightarrow \text{check how} \ PCA_n^{-1}(PCA_n(x)_{max}) \ \text{looks like}
-
-$$
+\text{train} p_{\theta} \ \text{over} \ \mathcal{D} \rightarrow \mathbf{x}_{max} = \max{p(\mathbf{x}| \theta)}  \rightarrow \text{check how it looks like}$$
 
 ![](imgs/x_max.png)
 
